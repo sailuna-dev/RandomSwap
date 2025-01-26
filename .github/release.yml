@@ -1,8 +1,23 @@
 changelog:
   exclude:
-    - renovate
+    authors:
+      - renovate[bot]
+      - dependabot[bot]
   categories:
-    - type: '🚀 Features'
-      label: 'Features'
-    - type: '🐛 Bug Fixes'
-      label: 'Bug Fixes'
+    - title: Features
+      labels:
+        - features
+    - title: Dependencies
+      labels:
+        - dependencies
+    - title: Bug Fixes
+      labels:
+        - fixes
+    - title: Other Changes
+      labels:
+        - "*"
+      exclude:
+        labels:
+          - features
+          - dependencies
+          - fixes

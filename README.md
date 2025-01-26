@@ -3,7 +3,7 @@
 ## Requirements
 
 - Java 21
-- Paper 1.21 above
+- Paper 1.21.4 above
 
 ## Features
 
