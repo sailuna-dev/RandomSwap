@@ -1,9 +1,8 @@
 name: Release
 on:
-  workflow_dispatch:
-  push:
-    tags:
-      - '*.*.*'
+  pull_request:
+    types:
+      - closed
 
 permissions:
   contents: write
@@ -39,6 +38,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          draft: true
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
           files: build/libs/*.jar
           generate_release_notes: true
