@@ -7,6 +7,8 @@ plugins {
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
 }
 
+val mcversion: String by project
+
 group = providers.gradleProperty("group").getOrElse("jp.sailuna.${project.name}")
 version = providers.gradleProperty("version").getOrElse("development")
 description = providers.gradleProperty("description").getOrElse("Random swap players location plugin")
@@ -18,7 +20,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    compileOnly("io.papermc.paper", "paper-api", "1.21.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper", "paper-api", "$mcversion-R0.1-SNAPSHOT")
 }
 
 tasks {
@@ -39,7 +41,7 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.21.4")
+        minecraftVersion(mcversion)
     }
 }
 
@@ -47,5 +49,5 @@ bukkitPluginYaml {
     main = "jp.sailuna.swap.RandomSwap"
     load = BukkitPluginYaml.PluginLoadOrder.STARTUP
     authors.addAll("hqnkuh", "sailuna developer")
-    apiVersion = "1.21"
+    apiVersion = mcversion
 }
