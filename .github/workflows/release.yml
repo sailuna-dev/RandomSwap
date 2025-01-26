@@ -1,4 +1,4 @@
-name: Release ${{ github.ref_name }}
+name: Release
 on:
   workflow_dispatch:
 
@@ -18,7 +18,7 @@ jobs:
         with:
           java-version: 21
           distribution: zulu
-          cache: 'gradle'
+          cache: "gradle"
       - name: Build with Gradle
         run: |
           chmod +x gradlew
@@ -33,10 +33,26 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
+      # Get the previous tag
+      - name: Get Previous tag
+        id: pre_tag
+        run: |
+          echo "pre_tag=$(curl -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)" >> $GITHUB_OUTPUT
+      # Generate a new tag based on the previous tag
+      - name: Generate tag
+        id: release_tag
+        run: |
+          today=$(date +'%Y.%m.%d')
+          pre_release_date=$(echo ${{ steps.pre_tag.outputs.pre_tag }} | awk -F'-' '{print $1}')
+          pre_release_count=$(echo ${{ steps.pre_tag.outputs.pre_tag }} | awk -F'-' '{print $2}')
+          if [[ ! $pre_release_date = $today ]]; then
+            pre_release_count=0
+          fi
+          echo "release_tag=$today-$(($pre_release_count + 1))" >> $GITHUB_OUTPUT
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Release ${{ github.ref_name }}
-          tag_name: ${{ github.ref_name }}
+          name: Release v${{ steps.release_tag.outputs.release_tag }}
+          tag_name: ${{ steps.release_tag.outputs.release_tag }}
           files: build/libs/*.jar
           generate_release_notes: true
