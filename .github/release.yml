@@ -1,10 +1,11 @@
 changelog:
   categories:
-    - title: Help
-      label: help
-    - title: Features
-      label: feature
-    - title: Bug Fixes
-      label: bug
-    - title: Dependencies
-      label: dependency
+    - title: 🏕 Features
+      labels:
+        - '*'
+      exclude:
+        labels:
+          - dependency
+    - title: 📦 Dependencies
+      labels:
+        - dependency
