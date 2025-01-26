@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "config:recommended"
+  ],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "major": {
+    "enabled": false
+  }
+}

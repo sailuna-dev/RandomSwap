@@ -1,0 +1,8 @@
+changelog:
+  exclude:
+    - renovate
+  categories:
+    - type: '🚀 Features'
+      label: 'Features'
+    - type: '🐛 Bug Fixes'
+      label: 'Bug Fixes'
