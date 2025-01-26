@@ -33,12 +33,10 @@ jobs:
       - build
     runs-on: ubuntu-latest
     steps:
-      # Get the previous tag
       - name: Get Previous tag
         id: pre_tag
         run: |
           echo "pre_tag=$(curl -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r .tag_name)" >> $GITHUB_OUTPUT
-      # Generate a new tag based on the previous tag
       - name: Generate tag
         id: release_tag
         run: |

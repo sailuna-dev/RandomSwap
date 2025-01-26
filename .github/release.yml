@@ -1,23 +1,10 @@
 changelog:
-  exclude:
-    authors:
-      - renovate[bot]
-      - dependabot[bot]
   categories:
+    - title: Help
+      label: help
     - title: Features
-      labels:
-        - features
-    - title: Dependencies
-      labels:
-        - dependencies
+      label: feature
     - title: Bug Fixes
-      labels:
-        - fixes
-    - title: Other Changes
-      labels:
-        - "*"
-      exclude:
-        labels:
-          - features
-          - dependencies
-          - fixes
+      label: bug
+    - title: Dependencies
+      label: dependency

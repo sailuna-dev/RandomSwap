@@ -10,7 +10,7 @@ plugins {
 val mcversion: String by project
 
 group = providers.gradleProperty("group").getOrElse("jp.sailuna.${project.name}")
-version = providers.gradleProperty("version").getOrElse("development")
+version = providers.gradleProperty("version").getOrElse("dev")
 description = providers.gradleProperty("description").getOrElse("Random swap players location plugin")
 
 repositories {
