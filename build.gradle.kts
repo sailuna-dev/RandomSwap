@@ -1,7 +1,7 @@
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
     id("com.gradleup.shadow") version "9.0.0-beta6"
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
