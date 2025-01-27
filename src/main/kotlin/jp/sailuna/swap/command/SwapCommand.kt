@@ -31,7 +31,7 @@ object SwapCommand {
                         ctx.getArgument("target", PlayerSelectorArgumentResolver::class.java)
                     val players = playerResolver.resolve(ctx.source)
                     players.filter { !SwapTask.players.contains(it) }.forEach { player ->
-                        SwapTask.addPlayer(player)
+                        SwapTask.players.add(player)
                         ctx.source.sender.sendMessage {
                             player.name().appendSpace().append(Component.text("を追加しました。", NamedTextColor.WHITE))
                         }
@@ -46,7 +46,7 @@ object SwapCommand {
                         ctx.getArgument("target", PlayerSelectorArgumentResolver::class.java)
                     val players = playerResolver.resolve(ctx.source)
                     players.filter { SwapTask.players.contains(it) }.forEach { player ->
-                        SwapTask.removePlayer(player)
+                        SwapTask.players.remove(player)
                         ctx.source.sender.sendMessage {
                             player.name().appendSpace().append(Component.text("を除外しました。", NamedTextColor.WHITE))
                         }

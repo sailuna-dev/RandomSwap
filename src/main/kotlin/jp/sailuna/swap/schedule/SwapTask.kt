@@ -3,6 +3,7 @@ package jp.sailuna.swap.schedule
 import jp.sailuna.swap.RandomSwap
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
@@ -10,6 +11,7 @@ import kotlin.random.Random
 
 object SwapTask {
     private val plugin = RandomSwap.plugin
+    private val locations = ArrayList<Location>()
     val players = ArrayList<Player>()
 
     private var task: BukkitRunnable? = null
@@ -70,20 +72,16 @@ object SwapTask {
             )
         ) else plugin.server.broadcast(Component.text("入れ替わりタイマーは開始されていません。", NamedTextColor.GRAY))
         task?.cancel()
-        players.clear()
         task = null
     }
 
-    // 入れ替わりの対象を追加する
-    fun addPlayer(vararg player: Player) = players.addAll(player)
-
-    // 入れ替わりの対象を除外する
-    fun removePlayer(vararg player: Player) = players.removeAll(player.toSet())
-
-    private fun swap(players: List<Player>) { // 入れ替わりの処理
-        val locations = players.shuffled(Random(System.currentTimeMillis())).map { it.location.clone() }
-        players.forEachIndexed { index, player ->
-            player.teleport(locations[index])
+    private fun swap(players: MutableList<Player>) {
+        // locations を空にする
+        locations.clear()
+        locations.addAll(players.map { it.location.clone() })
+        // 入れ替わりの処理
+        players.shuffled(Random(System.currentTimeMillis())).forEachIndexed { index, player ->
+            player.teleportAsync(locations[(index + 1) % players.size])
         }
     }
 }

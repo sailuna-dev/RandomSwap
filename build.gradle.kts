@@ -1,16 +1,17 @@
 import xyz.jpenilla.resourcefactory.bukkit.BukkitPluginYaml
 
 plugins {
-    kotlin("jvm") version "2.1.0"
-    id("com.gradleup.shadow") version "9.0.0-beta6"
-    id("xyz.jpenilla.run-paper") version "2.3.1"
-    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.2.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.run.paper)
+    alias(libs.plugins.resource.factory.bukkit)
+//    alias(libs.plugins.resource.factory.paper)
 }
 
 val mcversion: String by project
 
 group = providers.gradleProperty("group").getOrElse("jp.sailuna.${project.name}")
-version = providers.gradleProperty("version").getOrElse("dev")
+version = providers.gradleProperty("version").getOrElse("SNAPSHOT")
 description = providers.gradleProperty("description").getOrElse("Random swap players location plugin")
 
 repositories {
@@ -19,8 +20,8 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    compileOnly("io.papermc.paper", "paper-api", "$mcversion-R0.1-SNAPSHOT")
+    implementation(libs.kotlin.stdlib)
+    compileOnly(libs.paper.api)
 }
 
 tasks {
@@ -51,3 +52,9 @@ bukkitPluginYaml {
     authors.addAll("hqnkuh", "sailuna developer")
     apiVersion = mcversion
 }
+
+// paperPluginYaml {
+//    main = "jp.sailuna.swap.RandomSwap"
+//    authors.addAll("hqnkuh", "sailuna developer")
+//    apiVersion = mcversion
+//}
