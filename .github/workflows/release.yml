@@ -26,7 +26,7 @@ jobs:
       - name: Upload a build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: artifact
+          name: artifacts
           path: build/libs/*.jar
   release:
     needs:
@@ -47,10 +47,13 @@ jobs:
             pre_release_count=0
           fi
           echo "release_tag=$today-$(($pre_release_count + 1))" >> $GITHUB_OUTPUT
+      - name: Download a build Artifact
+        id: artifact
+        uses: actions/download-artifact@v4
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           name: Release v${{ steps.release_tag.outputs.release_tag }}
           tag_name: ${{ steps.release_tag.outputs.release_tag }}
-          files: build/libs/*.jar
+          files: ${{ steps.artifact.outputs.download-path }}
           generate_release_notes: true
