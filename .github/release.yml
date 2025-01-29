@@ -1,11 +1,2 @@
 changelog:
   categories:
-    - title: 🏕 Features
-      labels:
-        - '*'
-      exclude:
-        labels:
-          - dependency
-    - title: 📦 Dependencies
-      labels:
-        - dependency
