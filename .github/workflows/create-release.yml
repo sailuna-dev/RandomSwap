@@ -40,7 +40,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Release v${{ steps.release_tag.outputs.release_tag }}
+          name: Release ${{ steps.release_tag.outputs.release_tag }}
           tag_name: ${{ steps.release_tag.outputs.release_tag }}
           files: build/libs/*.jar
           generate_release_notes: true
