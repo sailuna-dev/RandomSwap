@@ -80,8 +80,8 @@ object SwapTask {
         locations.clear()
         locations.addAll(players.map { it.location.clone() })
         // 入れ替わりの処理
-        players.shuffled(Random(System.currentTimeMillis())).forEachIndexed { index, player ->
-            player.teleportAsync(locations[(index + 1) % players.size])
+        players.forEachIndexed { index, player ->
+            // あとで書き足す
         }
     }
 }
