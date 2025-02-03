@@ -1,13 +1,12 @@
 package jp.sailuna.swap.schedule
 
+import io.papermc.paper.entity.TeleportFlag
 import jp.sailuna.swap.RandomSwap
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.Bukkit
-import org.bukkit.Location
 import org.bukkit.Sound
 import org.bukkit.entity.Player
-import org.bukkit.metadata.FixedMetadataValue
+import org.bukkit.event.player.PlayerTeleportEvent
 import org.bukkit.scheduler.BukkitRunnable
 import kotlin.random.Random
 
@@ -77,15 +76,25 @@ object SwapTask {
     }
 
     private fun swap(players: MutableList<Player>) {
+        val swapPlayers: MutableList<Player> = ArrayList()
+
+        swapPlayers.addAll(players)
+
         // 入れ替わりの処理
-        players.forEach { player ->
-            val otherPlayer = players.filter { it != player && !player.hasMetadata("swapped") }.random()
-            val location = otherPlayer.location.clone()
-            player.setMetadata("swapped", FixedMetadataValue(plugin, Random.nextBoolean()))
-            Bukkit.getScheduler().runTask(plugin, Runnable { player.teleport(location) })
-        }
-        players.forEach { player ->
-            player.removeMetadata("swapped", plugin)
+        swapPlayers.forEach { player ->
+            val otherPlayers = swapPlayers.filter { it != player }
+            if (otherPlayers.isEmpty()) return
+            val index = Random.nextInt(otherPlayers.size)
+            val targetLocation = otherPlayers[index].location.clone()
+            player.teleportAsync(
+                targetLocation,
+                PlayerTeleportEvent.TeleportCause.PLUGIN,
+                TeleportFlag.Relative.VELOCITY_X,
+                TeleportFlag.Relative.VELOCITY_Y,
+                TeleportFlag.Relative.VELOCITY_Z
+            ).thenRun {
+                swapPlayers.remove(player)
+            }
         }
     }
 }
