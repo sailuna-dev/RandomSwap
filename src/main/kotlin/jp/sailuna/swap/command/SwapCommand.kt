@@ -9,6 +9,7 @@ import io.papermc.paper.command.brigadier.argument.ArgumentTypes
 import io.papermc.paper.command.brigadier.argument.resolvers.selector.PlayerSelectorArgumentResolver
 import jp.sailuna.swap.schedule.SwapTask
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.format.NamedTextColor
 
 object SwapCommand {
@@ -56,21 +57,16 @@ object SwapCommand {
         )
         root.then(
             Commands.literal("list").executes { ctx ->
-                if (SwapTask.players.isEmpty()) ctx.source.sender.sendMessage(
+                if (SwapTask.players.isEmpty()) ctx.source.sender.sendMessage {
                     Component.text(
                         "入れ替わりリストに存在しませんでした。", NamedTextColor.WHITE
                     )
-                )
+                }
                 else {
                     ctx.source.sender.sendMessage {
-                        Component.text(
-                            "入れ替わりリスト (${SwapTask.players.size}人)", NamedTextColor.GRAY
-                        )
-                    }
-                    ctx.source.sender.sendMessage {
-                        Component.text(
-                            SwapTask.players.map { it.name }.joinToString { "$it " }, NamedTextColor.WHITE
-                        )
+                        Component.text("入れ替わりリスト", NamedTextColor.WHITE).appendNewline().append(
+                            Component.join(JoinConfiguration.commas(true), SwapTask.players.map { it.name() })
+                        ).appendNewline().append(Component.text("${SwapTask.players.size}人", NamedTextColor.GRAY))
                     }
                 }
                 return@executes Command.SINGLE_SUCCESS
