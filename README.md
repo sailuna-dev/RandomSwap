@@ -1,23 +1,31 @@
 # RandomSwap
 
-## Requirements
+### 概要
 
-- Java 21
-- Paper 1.21.4 above
+* 定期的にプレイヤーの位置をランダムに入れ替えるPaperMCプラグイン
+* コマンドで入れ替わりのインターバルやプレイヤーを設定することが可能
 
-## Features
+### 使い方
 
-- Randomly swap the players location
+1. [__Releases__](https://github.com/sailuna-dev/RandomSwap/releases/latest)から`RandomSwap-<version>.jar`をダウンロードします
+2. サーバーの`plugins`フォルダに配置します
+3. サーバーを再起動します
 
-## Commands
+### 推奨環境
 
-- `/swap start` - Start the random swap timer
-- `/swap stop` - Stop the random swap timer
-- `/swap timer <time>` - Set the random swap timer
-- `/swap add <player>` - Add player to the random swap list
-- `/swap remove <player>` - Remove player from the random swap list
-- `/swap list` - List all players in the random swap list
+* Java 21
+* PaperMC 1.21.4
 
-## Downloads
+### コマンド一覧
 
-### [Download it from __Release__](https://github.com/sailuna-dev/RandomSwap/releases)
+| コマンド                     | 説明                    |
+|--------------------------|-----------------------|
+| `/swap start`            | 入れ替わりのタイマーを開始します      |
+| `/swap stop`             | 入れ替わりのタイマーを停止します      |
+| `/swap add <player>`     | 入れ替わりの対象プレイヤーを追加します   |
+| `/swap remove <player>`  | 入れ替わりの対象プレイヤーを除外します   |
+| `/swap timer <interval>` | 入れ替わりのインターバルを設定します    |
+| `/swap list`             | 入れ替わりの対象プレイヤー一覧を表示します |
+
+---
+Copyright (c) 2025 Sailuna <https://github.com/sailuna-dev> all rights reserved.
